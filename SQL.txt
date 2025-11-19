@@ -1,0 +1,23 @@
+CREATE DATABASE inatro_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE inatro_db;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role VARCHAR(50) DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE candidates (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  code VARCHAR(100),
+  delegation VARCHAR(120),
+  `date` DATE,
+  ingresso VARCHAR(20),
+  saida VARCHAR(20),
+  points INT DEFAULT 0,
+  status ENUM('aprovado','reprovado') DEFAULT 'reprovado',
+  fraude TINYINT(1) DEFAULT 0
+);
