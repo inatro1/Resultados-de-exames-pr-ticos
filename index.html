@@ -1,0 +1,320 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INATRO • Portal</title>
+   
+          <script>
+    if(localStorage.getItem('loggedIn') !== 'true'){
+        window.location.href = "login.html";
+    }
+</script>
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">INATRO</div>
+
+        <div class="menu-item active">
+            <i class="fa fa-users"></i> Candidatos
+        </div>
+        <div class="menu-item">
+            <i class="fa fa-chart-bar"></i> Resultados
+        </div>
+        <div class="menu-item">
+            <i class="fa fa-clock"></i> Exames em Realização
+        </div>
+
+        <div class="menu-item logout">
+            <i class="fa fa-sign-out-alt"></i> Sair
+        </div>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="content">
+
+        <header>
+            <h1>Candidatos</h1>
+
+            <div class="controls">
+                <input type="text" id="search" class="search" placeholder="Pesquisar nome...">
+
+                <button class="filter-btn" onclick="filtrar('Aprovado')">Aprovados</button>
+                <button class="filter-btn" onclick="filtrar('Reprovado')">Reprovados</button>
+                <button class="filter-btn" onclick="filtrar('Fraude')">Fraude</button>
+                <button class="filter-btn" oneclik="filtrar('Publico')">Publico</button>
+                <button class="filter-btn" onclick="resetFiltros()">Todos</button>
+            </div>
+        </header>
+
+       
+        <div class="portal-subtitulo">Portal do Funcionário</div>
+        <div class="usuario-titulo">Usuário: Mateus da Maria José</div>
+
+        <!-- Tabela -->
+        <div class="table-wrap">
+            <table id="tabela">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Data de nascimento</th>
+                        <th>Ficha Nº </th>
+                        <th>Pais de Origem</th>
+                        <th>Escola de Condução</th>
+                        <th>Classe da Carta</th>
+                        <th>tipo de ficheiros</th>
+                        <th>Categorias da Carta</th>
+                        <th>Data de registo</th>
+                        <th>Bilhete de identidade</th>
+                        <th>Estado de aprovação</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Abudo Joaquim Cheha</td>
+                        <td>17-06-1994
+                        <td>A1130371025</td>
+                        <td>Moçambique</td>
+                        <td>Escola de Condução ABC</td>
+                        <td>C1</td>
+                        <td>PDF/XSL</td>
+                        <td>N/A</td>
+                        <td>10-10-2025</td>
+                        <td>031005063656Q</td>
+                        <td><span class="status reprovado">Pendente</span></td>
+                        
+                        
+                    </tr>
+                     <td>1</td>
+                        <td>Abdul Cassamali Raja</td>
+                        <td>11-11-1984
+                        <td>A1167865429</td>
+                        <td>Moçambique</td>
+                        <td>Escola de Condução AJM</td>
+                        <td>C1</td>
+                        <td>PDF/XSL</td>
+                        <td>N/A</td>
+                        <td>23-09-2025</td>
+                        <td>030234579662Q</td>
+                        <td><span class="status reprovado">Pendente</span></td>
+                        
+                    <tr>
+                        <td>2</td>
+                        <td>Diogo Magalhas Maricoua</td>
+                        <td>30-12-1997</td>
+                        <td>A1180380525</td>
+                        <td>Moçambique</td>
+                        <td>Escola de condução AJM</td>
+                        <td>C1</td>
+                        <td>PDF/XLS</td>
+                        <td>N/A</td>
+                        <td>12-09-2025</td>
+                        <td>031345668924D</td>
+                        <td><span class="status aprovado">Aprovado</span></td>
+                    </tr>   
+
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Script externo -->
+    <script src="script.js"></script>
+</body>
+</html><style>:root {
+    --green: #006b3f;
+    --lightgreen: #e6fff0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    display: flex;
+}
+
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: var(--green);
+    color: #fff;
+    padding: 20px;
+}
+
+.brand {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.menu-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: var(--green);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.search {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.filter-btn {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.table-wrap {
+    margin-top: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 12px;
+    background: var(--lightgreen);
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.status {
+    padding: 6px 10px;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.aprovado { background: #009432; }
+.reprovado { background: #0d6efd; }
+.fraude { background: #d63031; }</style><script>// server.js
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const mysql = require("mysql2/promise");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+const PORT = 3000;
+const JWT_SECRET = "troque_isto_para_um_seguro_secret";
+
+// Configure a conexão MySQL
+const pool = mysql.createPool({
+  host: "localhost",
+  user: "seu_user",
+  password: "sua_senha",
+  database: "inatro_db",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
+
+// Login (POST /api/login) -> return token + user
+app.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const [rows] = await pool.query("SELECT id, username, password_hash, role FROM users WHERE username = ?", [username]);
+    if (!rows.length) return res.status(401).json({ error: "Credenciais inválidas" });
+    const user = rows[0];
+    const ok = await bcrypt.compare(password, user.password_hash);
+    if (!ok) return res.status(401).json({ error: "Credenciais inválidas" });
+    const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET, { expiresIn: "8h" });
+    res.json({ token, user: { id: user.id, username: user.username, role: user.role } });
+  } catch (err) {
+    console.error(err); res.status(500).json({ error: "erro no servidor" });
+  }
+});
+
+// middleware simples (valida token)
+function auth(req, res, next){
+  const authHeader = req.headers.authorization;
+  if(!authHeader) return res.status(401).json({error:"Sem autorização"});
+  const token = authHeader.split(" ")[1];
+  try{
+    const data = jwt.verify(token, JWT_SECRET);
+    req.user = data;
+    next();
+  }catch(e){ return res.status(401).json({error:"Token inválido"}); }
+}
+
+// GET candidates
+app.get("/api/candidates", auth, async (req,res)=>{
+  try{
+    const [rows] = await pool.query("SELECT id,name,code,delegation AS deleg, `date`, ingresso as `in`, saida as `out`, points AS pts, status, fraude FROM candidates ORDER BY id ASC");
+    res.json(rows);
+  }catch(err){ console.error(err); res.status(500).json({error:"db"}); }
+});
+
+// PUT update candidate (id)
+app.put("/api/candidates/:id", auth, async (req,res)=>{
+  const id = Number(req.params.id);
+  const body = req.body;
+  try{
+    await pool.query("UPDATE candidates SET name=?, status=?, fraude=?, points=? WHERE id=?", [body.name, body.status, body.fraude?1:0, body.pts || 0, id]);
+    res.json({ok:true});
+  }catch(err){ console.error(err); res.status(500).json({error:"db update"}); }
+});
+
+app.listen(PORT, ()=> console.log("API running on http://localhost:" + PORT));</script>
