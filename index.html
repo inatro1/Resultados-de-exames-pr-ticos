@@ -123,7 +123,14 @@
                         <td>Actualização</td>
                         <td><span class="status aprovado">Aprovado</span></td>
                     </tr>   
-
+<script>
+document.getElementById("btnSair").addEventListener("click", function () {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "login.html";
+});
+</script>
+</body>
                 </tbody>
             </table>
         </div>
