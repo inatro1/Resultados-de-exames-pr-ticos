@@ -1,0 +1,551 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INATRO • Portal</title>
+
+<script>
+if(localStorage.getItem('loggedIn') !== 'true'){
+    window.location.href = "login.html";
+}
+</script>
+
+<!-- CSS externo -->
+<link rel="stylesheet" href="styles.css">
+<!-- Ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+    --green: #006b3f;
+    --lightgreen: #e6fff0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 220px;
+    background: var(--green);
+    color: #fff;
+    padding: 20px;
+}
+
+.brand {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.menu-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: var(--green);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.search {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.filter-btn {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.table-wrap {
+    margin-top: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-x: auto; /* Scroll horizontal em telas pequenas */
+    max-width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+    min-width: 1000px;
+}
+
+th, td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    white-space: nowrap;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background: var(--lightgreen);
+    z-index: 2;
+}
+
+.status {
+    padding: 6px 10px;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.aprovado { background: #009432; }
+.pendente { background: #0055aa; }
+.reprovado { background: #ff3f34; }
+.fraude { background: #d63031; }
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">INATRO</div>
+    <div class="menu-item active"><i class="fa fa-users"></i> Candidatos</div>
+    <div class="menu-item"><i class="fa fa-chart-bar"></i> Resultados</div>
+    <div class="menu-item"><i class="fa fa-clock"></i> Exames em Realização</div>
+    <div class="menu-item logout"><i class="fa fa-sign-out-alt"></i> Sair</div>
+</aside>
+
+<main class="content">
+
+    <!-- ABA CANDIDATOS -->
+    <div id="aba-candidatos">
+        <header>
+            <h1>Candidatos</h1>
+            <div class="controls">
+                <input type="text" id="search" class="search" placeholder="Pesquisar nome...">
+                <button class="filter-btn" onclick="filtrar('Aprovado')">Aprovados</button>
+                <button class="filter-btn" onclick="filtrar('Reprovado')">Reprovados</button>
+                <button class="filter-btn" onclick="filtrar('Fraude')">Fraude</button>
+                <button class="filter-btn" onclick="resetFiltros()">Todos</button>
+            </div>
+        </header>
+
+        <div class="portal-subtitulo">Portal do Funcionário</div>
+        <div class="usuario-titulo">Usuário: Mateus da Maria José</div>
+
+        <div class="table-wrap">
+            <table id="tabela">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Data de nascimento</th>
+                        <th>Ficha Nº</th>
+                        <th>Pais de Origem</th>
+                        <th>Escola de Condução</th>
+                        <th>Classe da Carta</th>
+                        <th>Tipo de ficheiros</th>
+                        <th>Categorias da Carta</th>
+                        <th>Data de registo</th>
+                        <th>Bilhete de identidade</th>
+                        <th>Estado de aprovação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <t
+                    </tr>
+                    <tr>
+                        <td></td><td>Carlitos Artur Trinta</td><td>25-06-1988</td><td>A1110791225</td><td>Moçambique</td><td>Escola de Condução AJM</td><td>C1</td><td>PDF/XSL</td><td>N/A</td><td>19-12-2025</td><td>030102647427Q</td><td><span class="status fraude">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>Diogo Magalhas Maricoua</td><td>30-12-1997</td><td>A1180380525</td><td>Moçambique</td><td>Escola de condução AJM</td><td>C1</td><td>PDF/XLS</td><td>N/A</td><td>12-09-2025</td><td>Actualização</td><td><span class="status aprovado">Aprovado</span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>Norberto Elias Manuel</td><td>09-02-1998</td><td>A1112445877</td><td>Moçambique</td><td>Escola de Condução Auto Mubay</td><td>C1</td><td>PDF/XSL</td><td>N/A</td><td>02-10-2025</td><td>0314666368793Q</td><td><span class="status pendente">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>Isaias Mussagy</td><td>10-07-1982</td><td>A1112665845</td><td>Moçambique</td><td>Escola de Condução Auto Mubay</td><td>C1</td><td>PDF/XSL</td><td>N/A</td><td>30-10-2025</td><td>0302245565782Q</td><td><span class="status pendente">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>Natercia Imamo Gulamo</td><td>19-01-2000</td><td>A1113333800</td><td>Moçambique</td><td>Escola de Condução Rodauto</td><td>B</td><td>PDF/XSL</td><td>N/A</td><td>02-11-2025</td><td>031003245678S</td><td><span class="status pendente">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>Mariamo Issa Martins</td><td>09-12-1999</td><td>A1112168900</td><td>Moçambique</td><td>Escola de Condução Auto Mubay</td><td>C1</td><td>PDF/XSL</td><td>N/A</td><td>12-10-2025</td><td>0301007609867D</td><td><span class="status pendente">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>Momade Momade</td><td>04-05-1987</td><td>A1103345547</td><td>Moçambique</td><td>Escola de Condução ABC</td><td>C1</td><td>PDF/XSL</td><td>N/A</td><td>09-09-2025</td><td>030100508768A</td><td><span class="status pendente">Pendente</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABA RESULTADOS -->
+    <div id="aba-resultados" style="display:none;">
+        <header>
+            <h1>Resultados</h1>
+        </header>
+        <div class="portal-subtitulo">Portal do Funcionário</div>
+        <div class="usuario-titulo">Usuário: Mateus da Maria José</div>
+
+        <div class="table-wrap">
+            <table id="tabela-resultados">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Classe</th>
+                        <th>Ficha Nº</th>
+                        <th>Data  Marcado</th>
+                        <th>Serviço</th>
+                        <th>Resultado</th>
+                    </tr>
+                    </tr>
+  
+              
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>Abudo Joaquim Cheha</td>
+                        <td>C1</td>
+                        <td>A1130******</td>
+                        <td>13-01-2026</td>
+                        <td>Capitação e Levantamento</td>
+                        <td><span class="status aprovado">Aprovado</span></td>
+                    </tr>
+                    </tr>
+                    <td>Assane Raul Omar Amade</td>
+                    <td>C1</td>
+                    <td>A1134******</td>
+                    <td>14-01-2026</td>
+                    <td>Exames Práticos</td>
+                    <td><span class="status aprovado">Aprovado</span></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2022 INATRO. Desenvolvido por ITS - International Trading and Solutions.</p>
+    </footer>
+</main>
+
+<script>
+// Funções para organizar numeração das tabelas
+function organizarOrdem() {
+    const linhas = document.querySelectorAll("#tabela tbody tr");
+    let contador = 1;
+    linhas.forEach(linha => {
+        linha.querySelector("td").textContent = contador++;
+    });
+}
+
+function organizarResultados() {
+    const linhas = document.querySelectorAll("#tabela-resultados tbody tr");
+    let contador = 1;
+    linhas.forEach(linha => {
+        linha.querySelector("td").textContent = contador++;
+    });
+}
+
+// Alternar abas
+const menuItems = document.querySelectorAll(".menu-item");
+const abaCandidatos = document.getElementById("aba-candidatos");
+const abaResultados = document.getElementById("aba-resultados");
+
+menuItems[0].addEventListener("click", () => {
+    menuItems.forEach(i => i.classList.remove("active"));
+    menuItems[0].classList.add("active");
+
+    abaCandidatos.style.display = "block";
+    abaResultados.style.display = "none";
+
+    organizarOrdem();
+});
+
+menuItems[1].addEventListener("click", () => {
+    menuItems.forEach(i => i.classList.remove("active"));
+    menuItems[1].classList.add("active");
+
+    abaCandidatos.style.display = "none";
+    abaResultados.style.display = "block";
+
+    organizarResultados();
+});
+
+// Logout
+document.querySelector(".logout").addEventListener("click", function () {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = "login.html";
+});
+
+// Executar ao carregar a página
+window.addEventListener('DOMContentLoaded', organizarOrdem);
+</script>
+
+</body>
+</html><style>/* Variáveis de cores */
+:root {
+    --green: #006b3f;
+    --lightgreen: #e6fff0;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+    background: #f5f5f5;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: var(--green);
+    color: #fff;
+    padding: 20px;
+}
+
+.brand {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.menu-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Conteúdo principal */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: var(--green);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.search {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.filter-btn {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Subtítulos e usuário */
+.portal-subtitulo {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.usuario-titulo {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Tabela */
+.table-wrap {
+    margin-top: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-x: auto; /* Scroll horizontal em telas pequenas */
+    max-width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto; /* Colunas automáticas */
+    min-width: 1000px; /* Mantém layout consistente em desktop */
+}
+
+th, td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    white-space: nowrap; /* Não quebrar texto dentro da célula */
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background: var(--lightgreen);
+    z-index: 2;
+}
+
+/* Status */
+.status {
+    padding: 6px 10px;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.aprovado { background: #009432; }
+.pendente { background: #0055aa; }
+.reprovado { background: #ff3f34; }
+.fraude { background: #d63031; }
+
+/* Responsividade para celular */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+    table {
+        min-width: 600px;
+    }
+.footer {
+    width: 100%;
+    background-color: var(--green);
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
+    position: fixed; /* para fixar no rodapé */
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+}</style><script>// Pesquisa na tabela pelo nome
+document.getElementById("search").addEventListener("input", function() {
+    const filtro = this.value.toLowerCase();
+    const linhas = document.querySelectorAll("#tabela tbody tr");
+
+    linhas.forEach(linha => {
+        const nome = linha.cells[1].textContent.toLowerCase(); // coluna do nome
+        if(nome.includes(filtro)) {
+            linha.style.display = ""; // mostra a linha
+        } else {
+            linha.style.display = "none"; // esconde a linha
+        }
+    });
+// Alternância das abas
+const menu = document.querySelectorAll(".menu-item");
+const candidatosAba = document.querySelector(".content");
+const resultadosAba = document.getElementById("aba-resultados");
+
+menu[0].addEventListener("click", () => {
+    menu.forEach(m => m.classList.remove("active"));
+    menu[0].classList.add("active");
+    candidatosAba.style.display = "block";
+    resultadosAba.style.display = "none";
+});
+
+menu[1].addEventListener("click", () => {
+    menu.forEach(m => m.classList.remove("active"));
+    menu[1].classList.add("active");
+    candidatosAba.style.display = "none";
+    resultadosAba.style.display = "block";
+    organizarResultados();
+});
+
+// numeração automática
+function organizarResultados() {
+    const linhas = document.querySelectorAll("#tabela-resultados tbody tr");
+    let contador = 1;
+    linhas.forEach(linha => {
+        linha.querySelector("td").textContent = contador++;
+    });
+}
+    // Reorganiza a numeração após filtrar
+    organizarOrdem();
+});
+// Logout
+document.querySelector(".logout").addEventListener("click", function () {
+    // Limpa dados da sessão
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Redireciona para login
+    window.location.href = "login.html";
+});
+
+}</script>
